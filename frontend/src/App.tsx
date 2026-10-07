@@ -3,6 +3,22 @@ import { C1Chat, ThemeProvider } from '@thesysai/genui-sdk'
 import '@crayonai/react-ui/styles/index.css'
 import { useState, useCallback, useRef, useEffect } from 'react'
 
+// Backend chat endpoint.
+// - Development: defaults to the relative path '/api/chat', which the Vite dev
+//   server proxies to the local backend (see vite.config.ts).
+// - Production: set VITE_API_URL at build time (e.g. in the Vercel project
+//   settings or frontend/.env.production) to the full backend chat URL.
+// See frontend/.env.example.
+const API_URL: string =
+  (import.meta.env.VITE_API_URL as string | undefined)?.trim() || '/api/chat'
+
+if (import.meta.env.PROD && !import.meta.env.VITE_API_URL) {
+  console.warn(
+    'VITE_API_URL is not set for this production build; requests will go to the ' +
+      'same-origin path "/api/chat", which only works if the backend is served from the same host.'
+  )
+}
+
 // Recommendation data
 const RECOMMENDATIONS = [
   {
@@ -269,7 +285,7 @@ function App() {
     <div className="app-container" ref={chatContainerRef}>
       <ThemeProvider mode="dark">
         <C1Chat
-          apiUrl="https://marketinsight-skgl.onrender.com/api/chat"
+          apiUrl={API_URL}
           agentName="Market Insight"
           logoUrl="/icon.png"
           formFactor="full-page"
