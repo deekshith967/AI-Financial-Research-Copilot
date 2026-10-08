@@ -1,0 +1,14 @@
+{"question": "What are the risks from a helium supply disruption?", "source_file": "zephyr-systems-10k.md", "must_contain": ["helium"]}
+{"question": "What does the Stratoserve platform do?", "source_file": "zephyr-systems-10k.md", "must_contain": ["helium-cooled", "data centers"]}
+{"question": "How much revenue did Zephyr Systems report for fiscal year 2025?", "source_file": "zephyr-systems-10k.md", "must_contain": ["412 million"]}
+{"question": "Which customer concentrates Zephyr's revenue, and by how much?", "source_file": "zephyr-systems-10k.md", "must_contain": ["Northwind", "31 percent"]}
+{"question": "What was Zephyr's revenue in the third quarter of fiscal 2026?", "source_file": "zephyr-systems-10q.md", "must_contain": ["118 million"]}
+{"question": "How did Zephyr respond to higher helium procurement costs during the quarter?", "source_file": "zephyr-systems-10q.md", "must_contain": ["surcharge"]}
+{"question": "What is Zephyr's reiterated full-year FY2026 revenue guidance?", "source_file": "zephyr-systems-10q.md", "must_contain": ["470 to 485 million"]}
+{"question": "What is Aurora Minerals' core asset and where is it located?", "source_file": "aurora-minerals-research-note.html", "must_contain": ["Andes-4", "Chile"]}
+{"question": "What lithium price level would hurt the Andes-4 project economics?", "source_file": "aurora-minerals-research-note.html", "must_contain": ["12,000"]}
+{"question": "How does Aurora plan to fund the Andes-4 project?", "source_file": "aurora-minerals-research-note.html", "must_contain": ["streaming"]}
+{"question": "At what level did the Reserve Bank of India hold the repo rate?", "source_file": "india-market-outlook.txt", "must_contain": ["6.5 percent"]}
+{"question": "What should support rural demand for two-wheelers and tractors in India?", "source_file": "india-market-outlook.txt", "must_contain": ["monsoon"]}
+{"question": "What dividend payout ratio does Baltic Freightways target?", "source_file": "baltic-freightways-profile.md", "must_contain": ["40 percent"]}
+{"question": "How is Baltic Freightways hedged against fuel costs?", "source_file": "baltic-freightways-profile.md", "must_contain": ["fixed-price swaps"]}

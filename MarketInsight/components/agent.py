@@ -8,6 +8,7 @@ from langgraph.checkpoint.memory import MemorySaver
 
 from config.settings import Settings, get_settings
 from MarketInsight.prompts import SYSTEM_PROMPT
+from MarketInsight.rag.tools import list_ingested_documents, search_documents
 from MarketInsight.utils.logger import get_logger
 from MarketInsight.utils.tools import (
     get_analyst_recommendations,
@@ -32,12 +33,18 @@ logger = get_logger(__name__)
 # NOTE: `get_analyst_recommendations_summary` was removed from this list: in
 # yfinance 0.2.66 `recommendations_summary` simply returns `recommendations`,
 # so it duplicated `get_analyst_recommendations`.
+#
+# `search_documents` / `list_ingested_documents` (added 2026-10-08) expose the
+# local RAG index (ingested filings/research notes). They are independent of
+# the market-data tools and return an error envelope when the index is
+# unavailable, so the agent keeps working either way.
 TOOLS = [
     get_stock_price, get_historical_data, get_stock_news, get_balance_sheet,
     get_income_statement, get_cash_flow, get_company_info, get_dividends,
     get_splits, get_institutional_holders, get_major_shareholders,
     get_mutual_fund_holders, get_insider_transactions,
     get_analyst_recommendations, get_ticker,
+    search_documents, list_ingested_documents,
 ]
 
 

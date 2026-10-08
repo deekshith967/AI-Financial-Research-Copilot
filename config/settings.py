@@ -45,6 +45,16 @@ def _env_bool(name: str, default: bool) -> bool:
     return raw.lower() in {"1", "true", "yes", "on"}
 
 
+def _env_float(name: str, default: float) -> float:
+    raw = _env(name)
+    if raw is None:
+        return default
+    try:
+        return float(raw)
+    except ValueError:
+        raise ValueError(f"Environment variable {name} must be a number, got {raw!r}")
+
+
 def _env_list(name: str, default: str) -> Tuple[str, ...]:
     raw = _env(name) or default
     return tuple(item.strip() for item in raw.split(",") if item.strip())
@@ -92,6 +102,26 @@ class Settings:
             and self.langfuse_secret_key
         )
 
+    # --- RAG (local document retrieval; added 2026-10-08) ----------------
+    # All local: embeddings, vector store and lexical index live on disk under
+    # rag_data_dir. No external service or API key is required.
+    rag_enabled: bool
+    rag_data_dir: str            # index DB, model cache and eval output root
+    rag_embedding_model: str     # fastembed model id
+    rag_chunk_tokens: int        # target chunk size in tokens
+    rag_chunk_overlap_tokens: int
+    rag_min_chunk_tokens: int    # smaller trailing chunks are merged/dropped
+    rag_top_k: int               # default chunks returned per search
+    rag_max_top_k: int           # hard cap regardless of caller input
+    rag_candidate_k: int         # per-signal candidates fed into fusion
+    rag_rrf_k: int               # reciprocal-rank-fusion constant
+    rag_max_context_chars: int   # total text budget across returned chunks
+    rag_snippet_max_chars: int   # per-chunk cap in tool output
+    rag_vector_min_score: float  # cosine floor for the vector signal (FTS unaffected)
+    rag_rerank_enabled: bool     # cross-encoder rerank of fused candidates
+    rag_rerank_model: str
+    rag_rerank_candidates: int
+
 
 def load_settings() -> Settings:
     return Settings(
@@ -116,6 +146,22 @@ def load_settings() -> Settings:
         langfuse_public_key=_env("LANGFUSE_PUBLIC_KEY"),
         langfuse_secret_key=_env("LANGFUSE_SECRET_KEY"),
         langfuse_host=_env("LANGFUSE_HOST"),
+        rag_enabled=_env_bool("RAG_ENABLED", True),
+        rag_data_dir=_env("RAG_DATA_DIR") or "data/rag",
+        rag_embedding_model=_env("RAG_EMBEDDING_MODEL") or "BAAI/bge-small-en-v1.5",
+        rag_chunk_tokens=_env_int("RAG_CHUNK_TOKENS", 512),
+        rag_chunk_overlap_tokens=_env_int("RAG_CHUNK_OVERLAP_TOKENS", 77),
+        rag_min_chunk_tokens=_env_int("RAG_MIN_CHUNK_TOKENS", 40),
+        rag_top_k=_env_int("RAG_TOP_K", 8),
+        rag_max_top_k=_env_int("RAG_MAX_TOP_K", 16),
+        rag_candidate_k=_env_int("RAG_CANDIDATE_K", 24),
+        rag_rrf_k=_env_int("RAG_RRF_K", 60),
+        rag_max_context_chars=_env_int("RAG_MAX_CONTEXT_CHARS", 6000),
+        rag_snippet_max_chars=_env_int("RAG_SNIPPET_MAX_CHARS", 700),
+        rag_vector_min_score=_env_float("RAG_VECTOR_MIN_SCORE", 0.45),
+        rag_rerank_enabled=_env_bool("RAG_RERANK_ENABLED", False),
+        rag_rerank_model=_env("RAG_RERANK_MODEL") or "Xenova/ms-marco-MiniLM-L-6-v2",
+        rag_rerank_candidates=_env_int("RAG_RERANK_CANDIDATES", 20),
     )
 
 

@@ -8,3 +8,6 @@ yfinance
 langchain
 langchain-core
 langfuse
+fastembed
+sqlite-vec
+tiktoken

@@ -1,0 +1,21 @@
+India Market Outlook — Monthly Note (Fictional Sample)
+
+This fictional note is for retrieval pipeline testing; all figures are invented.
+
+The Nifty 50 index is expected to trade in a range-bound pattern over the next
+quarter as investors weigh resilient domestic demand against expensive
+large-cap valuations. The Reserve Bank of India held the repo rate at 6.5
+percent and signalled a data-dependent approach to any easing cycle.
+
+Information technology services face near-term headwinds from delayed
+discretionary spending by North American clients, while banking stocks
+continue to benefit from stable net interest margins and low credit costs.
+
+A normal monsoon is forecast for the coming season, which should support
+rural demand for two-wheelers, tractors, and fast-moving consumer goods.
+Analysts note that midcap and smallcap valuations remain elevated relative
+to their ten-year averages, favouring selective profit-taking.
+
+Key events to watch include the central bank's monetary policy minutes,
+quarterly earnings from major private-sector banks, and progress on the
+government's capital expenditure pipeline for rail and road projects.
